@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kickoff Store — piłkarskie klasyki. Oryginalna pasja.">
+  <meta name="theme-color" content="#0b0e0c">\n  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <title>Kickoff Store | Piłkarskie klasyki. Oryginalna pasja.</title>
+  <style>
+    :root {
+      --bg: #0b0e0c; --panel: #121713; --panel-2: #171e19;
+      --text: #f4f6f3; --muted: #a5afa7; --green: #b7ff35;
+      --line: rgba(255,255,255,.11); --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+    .topline { height: 4px; background: var(--green); }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(11,14,12,.9); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: .08em; }
+    .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; }\n    .brand-mark svg { display: block; width: 100%; height: 100%; }
+    .brand span:last-child { font-size: 15px; }
+    .links { display: flex; gap: 28px; color: #d5ddd6; font-size: 13px; font-weight: 650; }
+    .links a:hover, .text-link:hover { color: var(--green); }
+    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid var(--green); color: #10150c; background: var(--green); padding: 12px 18px; border-radius: 5px; font-size: 12px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; transition: .2s; cursor: pointer; }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); box-shadow: 0 9px 28px rgba(183,255,53,.16); }
+    .menu-btn { display:none; background:transparent; color:var(--text); border:1px solid var(--line); border-radius:5px; padding:9px 12px; }
+    .hero { min-height: 590px; display: grid; align-items: center; position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+    .hero:before { content:""; position:absolute; inset:0; background: radial-gradient(ellipse at 78% 46%, rgba(183,255,53,.16), transparent 35%), linear-gradient(110deg, #0b0e0c 10%, rgba(11,14,12,.88) 55%, rgba(11,14,12,.38)); }
+    .hero:after { content:""; position:absolute; width: min(48vw,610px); aspect-ratio:1; right: 3%; top: 50%; transform:translateY(-50%); border:1px solid rgba(183,255,53,.23); border-radius:50%; box-shadow:0 0 0 45px rgba(183,255,53,.025),0 0 0 90px rgba(183,255,53,.02); }
+    .hero-content { position:relative; z-index:1; padding: 90px 0 100px; max-width: 670px; }
+    .eyebrow { color: var(--green); font-size: 11px; letter-spacing: .22em; font-weight: 900; text-transform: uppercase; display:flex; align-items:center; gap:10px; }
+    .eyebrow:before { content:""; width:26px; height:2px; background:var(--green); }
+    h1 { margin: 22px 0 18px; font-size: clamp(48px, 7.5vw, 92px); line-height: .94; letter-spacing: -.065em; text-transform: uppercase; }
+    h1 em { color:var(--green); font-style:normal; }
+    .hero p { max-width: 480px; color: #bdc6be; line-height:1.75; font-size:16px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+    .button.secondary { color:var(--text); background:transparent; border-color:rgba(255,255,255,.25); }
+    .hero-note { margin-top: 48px; display:flex; gap:26px; flex-wrap:wrap; color:#9eaaa0; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+    .hero-note strong { color:var(--text); }
+    section { padding: 88px 0; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:30px; }
+    .section-kicker { color:var(--green); font-size:10px; font-weight:900; letter-spacing:.2em; text-transform:uppercase; }
+    h2 { font-size:clamp(30px,4vw,48px); line-height:1; letter-spacing:-.045em; margin:10px 0 0; text-transform:uppercase; }
+    .section-head p { max-width:370px; color:var(--muted); line-height:1.7; font-size:13px; margin:0; }
+    .notice { border:1px solid rgba(183,255,53,.28); background:rgba(183,255,53,.055); color:#dce8d7; border-radius:6px; padding:14px 16px; font-size:12px; line-height:1.6; margin-bottom:24px; }
+    .products { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .product { background:var(--panel); border:1px solid var(--line); border-radius:7px; overflow:hidden; transition:.25s; }
+    .product:hover { transform:translateY(-5px); border-color:rgba(183,255,53,.45); }
+    .product-art { min-height:255px; display:grid; place-items:center; position:relative; overflow:hidden; background:radial-gradient(ellipse at 50% 42%, #29372b, #151c17 65%); }
+    .product-art.alt { background:radial-gradient(ellipse at 50% 42%, #303333, #171b1a 65%); }
+    .product-art.third { background:radial-gradient(ellipse at 50% 42%, #273440, #151a1f 65%); }
+    .shirt { width:145px; height:165px; filter:drop-shadow(0 18px 18px rgba(0,0,0,.45)); }
+    .art-label { position:absolute; top:15px; left:15px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.28); padding:7px 9px; border-radius:3px; color:#dce5dc; font-size:9px; font-weight:900; letter-spacing:.12em; }
+    .product-info { padding:19px; }
+    .product-type { color:var(--green); font-size:9px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }
+    .product h3 { margin:9px 0 7px; font-size:17px; }
+    .product p { margin:0; color:var(--muted); font-size:12px; line-height:1.6; }
+    .product-bottom { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--line); margin-top:17px; padding-top:14px; color:#dce4dc; font-size:11px; }
+    .placeholder { color:#aab5ac; }
+    .about { background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:55px; align-items:center; }
+    .about-visual { min-height:320px; border:1px solid rgba(183,255,53,.2); border-radius:7px; position:relative; overflow:hidden; display:grid; place-items:center; background:linear-gradient(135deg,#1a251b,#0c100d); }
+    .about-visual:before,.about-visual:after { content:""; position:absolute; width:260px; height:260px; border:1px solid rgba(183,255,53,.18); border-radius:50%; }
+    .about-visual:after { width:190px; height:190px; }
+    .ball { z-index:1; font-size:100px; filter:grayscale(1); opacity:.85; }
+    .about-copy p { color:var(--muted); line-height:1.8; font-size:14px; }
+    .values { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:25px; }
+    .value { border-left:2px solid var(--green); padding:7px 0 7px 12px; }
+    .value strong { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
+    .value span { color:var(--muted); font-size:10px; display:block; margin-top:5px; }
+    .contact-box { display:flex; justify-content:space-between; align-items:center; gap:25px; padding:30px; border:1px solid var(--line); border-radius:7px; background:linear-gradient(110deg,#151c16,#101411); }
+    .contact-box p { color:var(--muted); font-size:13px; line-height:1.6; margin:8px 0 0; }
+    footer { border-top:1px solid var(--line); padding:25px 0; color:#87938a; font-size:10px; }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    .mobile-links { display:none; padding:0 0 16px; gap:16px; flex-direction:column; font-size:13px; color:#d5ddd6; }
+    @media (max-width:760px) {
+      .links,.nav-cta { display:none; } .menu-btn { display:block; }
+      .mobile-links.open { display:flex; }
+      .hero { min-height:540px; } .hero:after { width:80vw; right:-35%; opacity:.7; }
+      .hero-content { padding:75px 0; }
+      .section-head { align-items:start; flex-direction:column; }
+      .products { grid-template-columns:1fr; }
+      .product-art { min-height:230px; }
+      .about-grid { grid-template-columns:1fr; gap:28px; }
+      .about-visual { min-height:230px; }
+      .contact-box { align-items:flex-start; flex-direction:column; padding:23px; }
+      section { padding:65px 0; }
+      .values { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Główna nawigacja">
+        <a class="brand" href="#start" aria-label="Kickoff Store — strona główna">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img" aria-label="">
+              <path d="M32 3 55 12v18c0 15-9 25-23 31C18 55 9 45 9 30V12L32 3Z"
+                    fill="#b7ff35" stroke="#eaffc5" stroke-width="2"/>
+              <path d="M19 20h8v10l10-10h10L34 32l14 13H37L27 34v11h-8V20Z"
+                    fill="#10150c"/>
+              <circle cx="46" cy="17" r="5" fill="#10150c"/>
+            </svg>
+          </span><span>KICKOFF STORE</span>
+        </a>
+        <div class="links">
+          <a href="#kolekcja">Kolekcja</a><a href="#onas">O nas</a><a href="#kontakt">Kontakt</a>
+        </div>
+        <a class="nav-cta" href="#kolekcja">Odkryj kolekcję <span>↗</span></a>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileLinks">Menu ☰</button>
+      </nav>
+      <div class="mobile-links" id="mobileLinks">
+        <a href="#kolekcja">Kolekcja</a><a href="#onas">O nas</a><a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="start">
+      <div class="wrap">
+        <div class="hero-content">
+          <div class="eyebrow">Football culture · Since 2026</div>
+          <h1>Piłkarskie<br><em>klasyki.</em><br>Oryginalna pasja.</h1>
+          <p>Koszulki piłkarskie z charakterem. Kultowe barwy, wyjątkowe sezony i historie, które zostają z kibicami na lata.</p>
+          <div class="hero-actions">
+            <a class="button" href="#kolekcja">Poznaj kolekcję <span>↗</span></a>
+            <a class="button secondary" href="#onas">Nasza historia</a>
+          </div>
+          <div class="hero-note"><span><strong>01</strong> Autentyczność</span><span><strong>02</strong> Piłkarska historia</span><span><strong>03</strong> Wyjątkowe dropy</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kolekcja">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">Wybrane dla kibiców</div><h2>Pierwsza kolekcja</h2></div>
+          <p>Małe dropy, wielkie piłkarskie emocje. Tutaj pojawią się koszulki dostępne w Kickoff Store.</p>
+        </div>
+        <div class="notice"><strong>Wersja demonstracyjna:</strong> te trzy karty są przykładowymi miejscami na produkty, a nie ofertami sprzedaży. Przed publikacją zastąp je zdjęciami i danymi prawdziwych koszulek.</div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art">
+              <span class="art-label">MIEJSCE NA PRODUKT 01</span>
+              <svg class="shirt" viewBox="0 0 180 200" role="img" aria-label="Ilustracja przykładowej koszulki">
+                <path d="M55 18 L28 31 L7 67 L37 84 L49 66 L49 184 L131 184 L131 66 L143 84 L173 67 L152 31 L125 18 Q112 38 90 38 Q68 38 55 18Z" fill="#b7ff35" stroke="#e2ffad" stroke-width="3"/>
+                <path d="M55 18 Q68 48 90 48 Q112 48 125 18" fill="none" stroke="#182015" stroke-width="7"/>
+                <path d="M49 66 L131 66 M49 92 L131 92 M49 118 L131 118 M49 144 L131 144" stroke="#182015" stroke-width="5" opacity=".65"/>
+                <text x="90" y="112" text-anchor="middle" fill="#172012" font-size="17" font-weight="900">KS</text>
+              </svg>
+            </div>
+            <div class="product-info"><div class="product-type">KICKOFF VINTAGE</div><h3>Twoja pierwsza koszulka</h3><p>Wpisz klub, sezon, rozmiar i stan produktu.</p><div class="product-bottom"><span class="placeholder">Cena do uzupełnienia</span><span>01 / 03</span></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art alt">
+              <span class="art-label">MIEJSCE NA PRODUKT 02</span>
+              <svg class="shirt" viewBox="0 0 180 200" role="img" aria-label="Ilustracja przykładowej koszulki">
+                <path d="M55 18 L28 31 L7 67 L37 84 L49 66 L49 184 L131 184 L131 66 L143 84 L173 67 L152 31 L125 18 Q112 38 90 38 Q68 38 55 18Z" fill="#eceee9" stroke="#fff" stroke-width="3"/>
+                <path d="M55 18 Q68 48 90 48 Q112 48 125 18" fill="none" stroke="#222" stroke-width="7"/>
+                <path d="M49 72 L131 72" stroke="#1d2520" stroke-width="8"/>
+                <path d="M49 90 L131 90 M49 108 L131 108 M49 126 L131 126" stroke="#1d2520" stroke-width="3" opacity=".45"/>
+                <text x="90" y="119" text-anchor="middle" fill="#1d2520" font-size="17" font-weight="900">KS</text>
+              </svg>
+            </div>
+            <div class="product-info"><div class="product-type">KICKOFF AUTHENTIC</div><h3>Twoja druga koszulka</h3><p>Dodaj własne zdjęcia i dokładny opis.</p><div class="product-bottom"><span class="placeholder">Cena do uzupełnienia</span><span>02 / 03</span></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art third">
+              <span class="art-label">MIEJSCE NA PRODUKT 03</span>
+              <svg class="shirt" viewBox="0 0 180 200" role="img" aria-label="Ilustracja przykładowej koszulki">
+                <path d="M55 18 L28 31 L7 67 L37 84 L49 66 L49 184 L131 184 L131 66 L143 84 L173 67 L152 31 L125 18 Q112 38 90 38 Q68 38 55 18Z" fill="#244a70" stroke="#80b6e5" stroke-width="3"/>
+                <path d="M55 18 Q68 48 90 48 Q112 48 125 18" fill="none" stroke="#101b28" stroke-width="7"/>
+                <path d="M49 70 L131 70 M49 91 L131 91 M49 112 L131 112 M49 133 L131 133" stroke="#e9f3ff" stroke-width="5" opacity=".8"/>
+                <text x="90" y="111" text-anchor="middle" fill="#fff" font-size="17" font-weight="900">KS</text>
+              </svg>
+            </div>
+            <div class="product-info"><div class="product-type">KICKOFF DROP</div><h3>Twoja trzecia koszulka</h3><p>Podkreśl, co wyróżnia ten model.</p><div class="product-bottom"><span class="placeholder">Cena do uzupełnienia</span><span>03 / 03</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="onas">
+      <div class="wrap about-grid">
+        <div class="about-visual" aria-hidden="true"><div class="ball">⚽</div></div>
+        <div class="about-copy">
+          <div class="section-kicker">Więcej niż koszulka</div>
+          <h2>Każda barwa<br>ma swoją historię.</h2>
+          <p>Kickoff Store powstaje z pasji do futbolu i koszulek, które przypominają o wielkich meczach, legendarnych sezonach i ulubionych drużynach. Chcemy pokazywać produkty uczciwie — z dokładnym opisem stanu, rozmiaru i pochodzenia.</p>
+          <div class="values">
+            <div class="value"><strong>Autentyczność</strong><span>Jasne informacje o produkcie</span></div>
+            <div class="value"><strong>Detale</strong><span>Zdjęcia i dokładne wymiary</span></div>
+            <div class="value"><strong>Pasja</strong><span>Futbol w każdym wydaniu</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="wrap">
+        <div class="contact-box">
+          <div><div class="section-kicker">Masz pytanie?</div><h2>Porozmawiajmy o futbolu.</h2><p>Wstaw tutaj oficjalny adres e-mail do kontaktu, gdy będzie gotowy.</p></div>
+          <a class="button secondary" href="mailto:kontakt@kickoffstore.example">Przykładowy kontakt ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© 2026 KICKOFF STORE · Piłkarskie klasyki. Oryginalna pasja.</span>
+      <span>Projekt demonstracyjny — przed sprzedażą uzupełnij dane firmy/sprzedawcy, regulamin i politykę prywatności.</span>
+    </div>
+  </footer>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileLinks = document.getElementById('mobileLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? 'Zamknij ×' : 'Menu ☰';
+    });
+    mobileLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      mobileLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = 'Menu ☰';
+    }));
+  </script>
+</body>
+</html>
